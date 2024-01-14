@@ -1,34 +1,83 @@
-import { Link } from "react-router-dom";
 import data from "../../json/Data.json";
-import { SearchButton } from "../../components";
+import { FoodList, SearchButton } from "../../components";
+import UserType from "../../json/UserTypes.json";
+import { useState } from "react";
 
 const Home = () => {
+  const [type, setType] = useState("all");
+  const [search, setSearch] = useState(null);
+
+  const filterData = data.filter((d) => {
+    if (type === "all") {
+      if (search) {
+        const searchData = d.Name.includes(search);
+        return searchData;
+      }
+      return true;
+    } else if (type === "eater") {
+      const eaterData = d.UserType === UserType[0].UserCode;
+      if (search) {
+        const searchData = eaterData && d.Name.includes(search);
+        return searchData;
+      }
+      return eaterData;
+    } else if (type === "vegan") {
+      const veganData = d.UserType === UserType[1].UserCode;
+      if (search) {
+        const searchData = veganData && d.Name.includes(search);
+        return searchData;
+      }
+      return veganData;
+    }
+    return false;
+  });
+
   return (
     <div className="max-w-[1500px] mx-auto">
-      <div className="flex justify-end">
-        <SearchButton />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-6 gap-6">
-        {data.map((d) => (
-          <Link to={`/foods/${d.Guid}`}
-            key={d.Guid}
-            className="flex border border-orange-500 hover:bg-gray-100 p-4 items-center space-x-6 hover:rotate-2 transition-all rounded-lg"
+      <div className="md:flex md:justify-between md:items-center pl-6 space-y-3">
+        <div className="space-x-2">
+          <button
+            onClick={() => setType("all")}
+            className={`border border-orange-500 text-orange-500 px-6 py-2 rounded-tl-[20px] rounded-br-[20px] hover:bg-orange-500 hover:text-white ${
+              type === "all" && "bg-orange-500 text-white"
+            }`}
           >
-            <div className="">
-              <img
-                className="w-[100px] h-[100px] rounded-full hover:scale-110 overflow-hidden transition-all"
-                src={`/img/${d.Name}.jpg`}
-                alt={d.Name}
-                onError={(e) => {
-                  e.target.src = "/img/default.png";
-                }}
-              />
-            </div>
-            <div className="">
-              <p className="hover:text-orange-500">{d.Name}</p>
-            </div>
-          </Link>
-        ))}
+            All
+          </button>
+          <button
+            onClick={() => setType("eater")}
+            className={`border border-orange-500 text-orange-500 px-6 py-2 rounded-tl-[20px] rounded-br-[20px] hover:bg-orange-500 hover:text-white ${
+              type === "eater" && "bg-orange-500 text-white"
+            }`}
+          >
+            Meal Eater
+          </button>
+          <button
+            onClick={() => setType("vegan")}
+            className={`border border-orange-500 text-orange-500 px-6 py-2 rounded-tl-[20px] rounded-br-[20px] hover:bg-orange-500 hover:text-white ${
+              type === "vegan" && "bg-orange-500 text-white"
+            }`}
+          >
+            Vegan
+          </button>
+        </div>
+        <SearchButton search={search} setSearch={setSearch} />
+      </div>
+      <div
+        className={`grid ${
+          filterData.length !== 0 &&
+          "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        } p-6`}
+      >
+        {filterData.length === 0 ? (
+          <div className="flex justify-center my-36">
+            <h1 className="text-orange-500 text-2xl italic">Menu No Found</h1>
+          </div>
+        ) : (
+          filterData.map((d) => (
+            <FoodList d={d} />
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from '../App';
-import { Detail, Home } from "../pages";
+import { Detail, Home, NoFound } from "../pages";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
         {
           path: "/foods/:id",
           element: <Detail />,
+        },
+        {
+          path: "*",
+          element: <NoFound />,
         }
       ]
     },
