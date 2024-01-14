@@ -8,28 +8,18 @@ const Home = () => {
   const [search, setSearch] = useState(null);
 
   const filterData = data.filter((d) => {
-    if (type === "all") {
-      if (search) {
-        const searchData = d.Name.includes(search);
-        return searchData;
-      }
-      return true;
-    } else if (type === "eater") {
-      const eaterData = d.UserType === UserType[0].UserCode;
-      if (search) {
-        const searchData = eaterData && d.Name.includes(search);
-        return searchData;
-      }
-      return eaterData;
-    } else if (type === "vegan") {
-      const veganData = d.UserType === UserType[1].UserCode;
-      if (search) {
-        const searchData = veganData && d.Name.includes(search);
-        return searchData;
-      }
-      return veganData;
+    switch (type) {
+      case "all":
+        return search ? d.Name.includes(search) : true;
+      case "eater":
+        const eaterData = d.UserType === UserType[0].UserCode;
+        return search ? (eaterData && d.Name.includes(search)) : eaterData;
+      case "vegan":
+        const veganData = d.UserType === UserType[1].UserCode;
+        return search ? (veganData && d.Name.includes(search)) : veganData;
+      default:
+        return false;
     }
-    return false;
   });
 
   return (
