@@ -14,8 +14,8 @@ const FoodDetail = ({ Name, UserMMType, UserEngType, Ingredients, CookingInstruc
         </div>
         <div className="">
             <div className="space-y-1 mb-3">
-              <h1 className="text-2xl font-bold hover:text-orange-500">Menu Type</h1>
-              <div className="hover:text-orange-500 flex space-x-3">
+              <h1 className="text-2xl font-bold text-orange-500">Menu Type</h1>
+              <div className="flex space-x-3">
                 <span className="">
                   {UserMMType} or {UserEngType}
                 </span>
@@ -23,8 +23,8 @@ const FoodDetail = ({ Name, UserMMType, UserEngType, Ingredients, CookingInstruc
             </div>
 
             <div className="space-y-1 mb-3">
-              <h1 className="text-2xl font-bold hover:text-orange-500">Menu Name</h1>
-              <div className="hover:text-orange-500 flex space-x-3">
+              <h1 className="text-2xl font-bold text-orange-500">Menu Name</h1>
+              <div className="flex space-x-3">
                 <span className="">
                   {Name}
                 </span>
@@ -32,8 +32,8 @@ const FoodDetail = ({ Name, UserMMType, UserEngType, Ingredients, CookingInstruc
             </div>
 
             <div className="space-y-1 mb-3">
-              <h1 className="text-2xl font-bold hover:text-orange-500">Ingredients</h1>
-              <div className="hover:text-orange-500 flex space-x-3">
+              <h1 className="text-2xl font-bold text-orange-500">Ingredients</h1>
+              <div className="flex space-x-3">
                 <span className="">
                   {Ingredients}
                 </span>
@@ -41,8 +41,8 @@ const FoodDetail = ({ Name, UserMMType, UserEngType, Ingredients, CookingInstruc
             </div>
 
             <div className="space-y-1 mb-3">
-              <h1 className="text-2xl font-bold hover:text-orange-500">Cooking Instruction</h1>
-              <div className="hover:text-orange-500 flex space-x-3">
+              <h1 className="text-2xl font-bold text-orange-500">Cooking Instruction</h1>
+              <div className="flex space-x-3">
                 <span className="">
                   {CookingInstructions}
                 </span>
